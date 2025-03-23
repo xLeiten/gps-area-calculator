@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Калькулятор площади</string>
+    <string name="area_result">Площадь: %1$f кв. м.</string>
+    <string name="area">Площадь</string>
+    <string name="area_type">Тип площади</string>
+    <string name="area_type_change">Изменение типа площади</string>
+    <string name="settings">Настройки</string>
+
+    <string name="figure_radius">Радиус</string>
+    <string name="figure_width">Ширина</string>
+    <string name="figure_height">Высота</string>
+    <string name="figure_side_1">Сторона 1</string>
+    <string name="figure_side_2">Сторона 2</string>
+    <string name="figure_side_3">Сторона 3</string>
+
+    <string name="latitude">Широта</string>
+    <string name="longitude">Долгота</string>
+
+    <string name="action_save_point">Сохранить точку</string>
+    <string name="action_start_recording">Начать запись</string>
+    <string name="action_cancel">Отмена</string>
+
+    <string-array name="figures">
+        <item>Треугольник</item>
+        <item>Прямоугольник</item>
+        <item>Круг</item>
+        <item>Овал</item>
+        <item>Квадрат (Сторона)</item>
+        <item>Квадрат (Нормаль)</item>
+    </string-array>
+
+    <string name="error_no_params">Ошибка. Недостаточно параметров</string>
+    <string name="error_not_a_number">Ошибка. Величина площади не является числом, либо слишком большая</string>
+    <string name="error_gps_unavailable">Ошибка. GPS недоступен</string>
+    <string name="error_area_calculation">Ошибка расчета площади</string>
+
+    <string name="hint_select_figure_to_calculate">Для расчета выберите тип фигуры измеряемой площади</string>
+    <string name="hint_no_gps_permission">Для работы приложения необходим доступ к вашему местоположению. Вы можете выдать этому приложению разрешение в настройках</string>
+    <string name="hint_enable_gps">Чтобы продолжить, пожалуйста, включите GPS</string>
+    <string name="hint_calculation_starting_date">Начало записи</string>
+    <string name="hint_calculation_stop_date">Конец записи</string>
+    <string name="hint_position_hasnt_changed">Позиция не изменилась. Отойдите подальше, либо подождите несколько секунд</string>
+    <string name="hint_welcome">Чтобы начать производить измерения, выберите тип измеряемой площади и нажмите кнопку "Начать запись"</string>
+    <string name="hint_not_enough_points">Недостаточно точек для данного типа площади</string>
+    <string name="hint_area_not_a_number">Полученная площадь не является числом, либо слишком большая. Возможно, для данного типа площади есть определенные условия расчета</string>
+
+    <string name="confirm_change_area_type">Вы уже начали замеры. Если продолжите, ваш прогресс будет удален</string>
+
+    <string name="state_gps_provider_disabled">GPS провайдер выключен</string>
+    <string name="state_gps_provider_enabled">GPS провайдер включен</string>
+    <string name="state_point_loading">Ожидание координат…</string>
+    <string name="state_gained_points">Собрано точек: %1$d/%2$d</string>
+
+    <string name="success_change_area_type">Тип площади был успешно изменен</string>
+
+    <string name="dialog_ok_button_text">ОК</string>
+    <string name="dialog_default_title">Сообщение</string>
+</resources>
