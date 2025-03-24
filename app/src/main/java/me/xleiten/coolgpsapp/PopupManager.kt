@@ -1,7 +1,6 @@
 package me.xleiten.coolgpsapp
 
 import android.content.Context
-import android.health.connect.datatypes.units.Length
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
@@ -16,7 +15,11 @@ class PopupManager(private val context: Context) {
         Toast.makeText(this.context, messageId, length).show()
     }
 
-    fun dialog(message: CharSequence, titleId: Int = R.string.dialog_default_title, config: AlertDialog.Builder.() -> Unit = { }): AlertDialog {
+    fun dialog(
+        message: CharSequence,
+        titleId: Int = R.string.dialog_default_title,
+        config: AlertDialog.Builder.() -> Unit = { }
+    ): AlertDialog {
         val dialogBuilder = AlertDialog.Builder(this.context)
         dialogBuilder.setTitle(titleId)
         dialogBuilder.setMessage(message)
@@ -31,7 +34,11 @@ class PopupManager(private val context: Context) {
         return dialog
     }
 
-    fun dialog(messageId: Int, titleId: Int = R.string.dialog_default_title, config: AlertDialog.Builder.() -> Unit = { }): AlertDialog {
+    fun dialog(
+        messageId: Int,
+        titleId: Int = R.string.dialog_default_title,
+        config: AlertDialog.Builder.() -> Unit = { }
+    ): AlertDialog {
         return this.dialog(this.context.getText(messageId), titleId, config)
     }
 }

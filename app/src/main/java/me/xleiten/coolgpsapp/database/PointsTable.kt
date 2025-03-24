@@ -1,9 +1,7 @@
 package me.xleiten.coolgpsapp.database
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import android.location.Location
 import me.xleiten.coolgpsapp.area.Position
 
 class PointsTable : DBTable("Results") {
@@ -11,7 +9,7 @@ class PointsTable : DBTable("Results") {
     val columnLongitude: String = this.addColumn("area", "REAL")
     val columnDate: String = this.addColumn("date", "DATETIME")
 
-    fun savePoint(db: SQLiteDatabase, latitude: Double, longitude: Double, date: String) {
+    fun savePoint(db: SQLiteDatabase, latitude: Float, longitude: Float, date: String) {
         val values = ContentValues();
         values.put(columnLatitude, latitude)
         values.put(columnLongitude, longitude)

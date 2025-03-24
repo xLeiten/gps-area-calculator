@@ -8,7 +8,7 @@ class ResultsTable : DBTable("Results") {
     val columnDate: String = this.addColumn("date", "DATETIME")
     val columnArea: String = this.addColumn("area", "REAL")
 
-    fun saveResult(db: SQLiteDatabase, name: String, area: Double, date: String) {
+    fun saveResult(db: SQLiteDatabase, name: String, area: Float, date: String) {
         val values = ContentValues();
         values.put(columnName, name)
         values.put(columnArea, area)
