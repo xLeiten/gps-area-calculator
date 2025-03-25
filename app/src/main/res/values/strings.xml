@@ -1,59 +1,29 @@
-<!-- Переводы строк. Этот файл используется по умолчанию, если других языков нету. -->
 <resources>
     <string name="app_name">Area calculator</string>
     <string name="area_result">Area: %1$f sq. m.</string>
-    <string name="area">Area</string>
+    <string name="result">Result</string>
     <string name="area_type">Area type</string>
-    <string name="area_type_change">Area type change</string>
     <string name="settings">Settings</string>
-
-    <string name="figure_radius">Radius</string>
-    <string name="figure_width">Width</string>
-    <string name="figure_height">Height</string>
-    <string name="figure_side_1">Side 1</string>
-    <string name="figure_side_2">Side 2</string>
-    <string name="figure_side_3">Side 3</string>
-
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
-
-    <string name="action_save_point">Save point</string>
-    <string name="action_start_recording">Start recording</string>
-    <string name="action_cancel">Cancel</string>
+    <string name="save_point">Save point</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps_unavailable">GPS Unavailable</string>
+    <string name="area_calc_error">Area calculation error</string>
+    <string name="no_gps_permission">This app cannot work without your location permission. You can grant this permission in your system settings app</string>
+    <string name="enable_gps">Please, enable GPS to continue</string>
+    <string name="position_not_changed">Position has not changed. Please step back or wait a few seconds</string>
+    <string name="gps_disabled">GPS disabled</string>
+    <string name="point_loading">Waiting for point…</string>
+    <string name="saved_points">Points: %1$d/%2$d</string>
+    <string name="dialog_ok_button_text">OK</string>
+    <string name="dialog_title">Title</string>
 
     <string-array name="figures">
-        <item>Triangle</item>
         <item>Rectangle</item>
+        <item>Square</item>
         <item>Circle</item>
         <item>Oval</item>
-        <item>Square (Side)</item>
-        <item>Square (Normal)</item>
+        <item>Triangle</item>
     </string-array>
-
-    <string name="error_no_params">Error. Not enough parameters</string>
-    <string name="error_not_a_number">Error. Result area is not finite or not a number</string>
-    <string name="error_gps_unavailable">Error. GPS Unavailable</string>
-    <string name="error_area_calculation">Area calculation error</string>
-
-    <string name="hint_select_figure_to_calculate">Select figure type to start area calculation</string>
-    <string name="hint_no_gps_permission">This app cannot work without your location permission. You can grant this permission in your system settings app</string>
-    <string name="hint_enable_gps">Please, enable GPS to continue</string>
-    <string name="hint_calculation_starting_date">Record started at</string>
-    <string name="hint_calculation_stop_date">Record stopped at</string>
-    <string name="hint_position_hasnt_changed">Position has not changed. Please step back or wait a few seconds</string>
-    <string name="hint_welcome">To start calculation choose your area type and press "Start recording".</string>
-    <string name="hint_not_enough_points">There are not enough points for this type of area</string>
-    <string name="hint_area_not_a_number">The resulting area is not a number, or it is too large. Perhaps, there are certain calculation conditions for this type of area</string>
-
-    <string name="confirm_change_area_type">You have already started measurements. If you continue, your progress will be deleted</string>
-
-    <string name="state_gps_provider_disabled">GPS provider disabled</string>
-    <string name="state_gps_provider_enabled">GPS provider enabled</string>
-    <string name="state_point_loading">Point is loading…</string>
-    <string name="state_gained_points">Gained points: %1$d/%2$d</string>
-
-    <string name="success_change_area_type">Area type successfully changed</string>
-
-    <string name="dialog_ok_button_text">OK</string>
-    <string name="dialog_default_title">Message</string>
 </resources>

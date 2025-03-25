@@ -1,15 +1,15 @@
-package me.xleiten.coolgpsapp.area
+package test.app.areacalculator.figures
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
-import me.xleiten.coolgpsapp.R
+import test.app.areacalculator.R
 import kotlin.math.PI
 import kotlin.math.min
 
-class Oval(name: String, val radius1: Float, val radius2: Float) : Figure(name) {
-    constructor(name: String, radius: Float) : this(name, radius, radius)
+class Oval(val radius1: Float, val radius2: Float) : Figure() {
+    constructor(radius: Float) : this(radius, radius)
 
     override fun calcArea(): Float {
         return (this.radius1 * this.radius2 * PI).toFloat()

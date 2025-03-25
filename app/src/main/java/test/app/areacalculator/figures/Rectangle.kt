@@ -1,14 +1,14 @@
-package me.xleiten.coolgpsapp.area
+package test.app.areacalculator.figures
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
-import me.xleiten.coolgpsapp.R
+import test.app.areacalculator.R
 import kotlin.math.min
 
-class Rectangle(name: String, val width: Float, val height: Float) : Figure(name) {
-    constructor(name: String, size: Float) : this(name, size, size)
+class Rectangle(val width: Float, val height: Float) : Figure() {
+    constructor(size: Float) : this(size, size)
 
     override fun calcArea(): Float {
         return this.width * this.height

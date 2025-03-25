@@ -1,4 +1,4 @@
-package me.xleiten.coolgpsapp.view
+package test.app.areacalculator.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import me.xleiten.coolgpsapp.area.Figure
+import test.app.areacalculator.figures.Figure
 
 class FigureView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val paint = Paint()
@@ -16,13 +16,8 @@ class FigureView(context: Context, attrs: AttributeSet? = null) : View(context, 
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        this.configurePaint()
-        this.figure?.draw(this.context, canvas, this.paint, this.path)
-    }
-
-    private fun configurePaint() {
-        this.paint.color = android.graphics.Color.WHITE
         this.paint.isAntiAlias = true
+        this.figure?.draw(this.context, canvas, this.paint, this.path)
     }
 
     fun setFigure(figure: Figure) {

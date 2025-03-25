@@ -1,4 +1,4 @@
-package me.xleiten.coolgpsapp
+package test.app.areacalculator
 
 import org.junit.Test
 

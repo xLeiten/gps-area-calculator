@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="AppTheme.PopupOverlay" parent="Base.Theme.CoolGPSApp">
-        <item name="android:padding">8dp</item>
-    </style>
-</resources>

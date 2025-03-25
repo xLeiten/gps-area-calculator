@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CoolGPSApp"
+rootProject.name = "AreaCalculator"
 include(":app")
  

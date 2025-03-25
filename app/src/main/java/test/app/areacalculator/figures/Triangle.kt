@@ -1,14 +1,14 @@
-package me.xleiten.coolgpsapp.area
+package test.app.areacalculator.figures
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
-import me.xleiten.coolgpsapp.R
+import test.app.areacalculator.R
 import kotlin.math.sqrt
 
-class Triangle(name: String, val side1: Float, val side2: Float, val side3: Float) :
-    Figure(name) {
+class Triangle(val side1: Float, val side2: Float, val side3: Float) :
+    Figure() {
     override fun calcArea(): Float {
         val s = (this.side1 + this.side2 + this.side3) / 2
         return sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3))

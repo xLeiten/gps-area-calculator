@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "me.xleiten.coolgpsapp"
+    namespace = "test.app.areacalculator"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "me.xleiten.coolgpsapp"
+        applicationId = "test.app.areacalculator"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

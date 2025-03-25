@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/padding_small">
+    android:padding="8dp">
 
-    <me.xleiten.coolgpsapp.view.FigureView
+    <test.app.areacalculator.views.FigureView
         android:id="@+id/FigureCanvas"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
