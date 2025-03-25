@@ -41,11 +41,11 @@ open class Database(context: Context) :
         this.pointsTable.clear(this.writableDatabase)
     }
 
-    fun saveResult(areaName: String, area: Double, date: String) {
+    fun saveResult(areaName: String, area: Float, date: String) {
         this.resultsTable.saveResult(this.writableDatabase, areaName, area, date)
     }
 
-    fun savePoint(latitude: Double, longitude: Double, date: String) {
+    fun savePoint(latitude: Float, longitude: Float, date: String) {
         this.pointsTable.savePoint(this.writableDatabase, latitude, longitude, date)
     }
 

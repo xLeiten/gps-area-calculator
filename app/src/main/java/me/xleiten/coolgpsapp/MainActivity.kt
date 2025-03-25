@@ -26,10 +26,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.location.LocationListenerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import me.xleiten.coolgpsapp.area.AreaCalculator
 import me.xleiten.coolgpsapp.area.AreaType
 import me.xleiten.coolgpsapp.database.Database
+import me.xleiten.coolgpsapp.view.FigureView
 import java.util.Date
+import java.util.UUID
 
 class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListener,
     LocationListenerCompat {
@@ -39,8 +40,6 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
     private lateinit var popupManager: PopupManager
     private lateinit var database: Database
 
-    private lateinit var layoutInflater: LayoutInflater
-
     private lateinit var MainActionButton: Button
     private lateinit var FigureSelect: Spinner
     private lateinit var PointsSavingLog: LinearLayout
@@ -49,12 +48,16 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
     private lateinit var CalculationStateContainer: LinearLayout
     private lateinit var WelcomeMessage: TextView
 
+    private lateinit var layoutInflater: LayoutInflater
+
     private var locationManager: LocationManager? = null
 
     private var areaType: AreaType = AreaType.RECTANGLE
     private var actionType: ActionType = ActionType.START_RECORDING
     private var lastSavedLocation: Location? = null
     private var currentPoints: Int = 0
+
+    private val locationProvider = LocationManager.NETWORK_PROVIDER
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,15 +70,14 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
             insets
         }
 
+        this.layoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         this.initializeComponents()
 
         this.popupManager = PopupManager(this)
         this.database = Database(this)
         this.locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
-        this.layoutInflater = LayoutInflater.from(this)
 
         this.restoreActivityState(savedInstanceState)
-
         this.configureComponents()
     }
 
@@ -115,7 +117,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
                         ActivityStateKey.LAST_LONGITUDE.id
                     )
                 ) {
-                    this.lastSavedLocation = Location(LocationManager.NETWORK_PROVIDER).apply {
+                    this.lastSavedLocation = Location(this.locationProvider).apply {
                         latitude = bundle.getDouble(ActivityStateKey.LAST_LATITUDE.id)
                         longitude = bundle.getDouble(ActivityStateKey.LAST_LONGITUDE.id)
                     }
@@ -170,14 +172,14 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
 
                     ActionType.SAVE_POINT -> {
                         this.checkGPSPermission({
-                            if (this.locationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true) {
+                            if (this.locationManager?.isProviderEnabled(this.locationProvider) == true) {
                                 this.addLogMessage(this.getText(R.string.state_point_loading))
                                 try {
                                     this.locationManager?.removeUpdates(this)
                                 } catch (_: Exception) {
                                 }
                                 this.locationManager?.requestSingleUpdate(
-                                    LocationManager.NETWORK_PROVIDER,
+                                    this.locationProvider,
                                     this,
                                     this.mainLooper
                                 )
@@ -190,9 +192,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
                         })
                     }
 
-                    ActionType.WAITING_POINT -> {
-                        this.popupManager.toast(R.string.hint_position_hasnt_changed)
-                    }
+                    ActionType.WAITING_POINT -> {}
                 }
             }
         }
@@ -305,7 +305,6 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
             this.resources.getDimensionPixelSize(R.dimen.padding_small)
         )
         this.PointsSavingLog.addView(logTextView)
-
         this.AppLogScroller.post {
             this.AppLogScroller.smoothScrollTo(0, this.PointsSavingLog.bottom)
         }
@@ -375,8 +374,8 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
 
     private fun updatePoints(location: Location) {
         this.database.savePoint(
-            location.latitude,
-            location.longitude,
+            location.latitude.toFloat(),
+            location.longitude.toFloat(),
             Database.dateToTimestamp(Date())
         )
         this.currentPoints = this.database.getSavedPointsAmount()
@@ -390,7 +389,6 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
                 )
             }: ${location.longitude}"
         )
-
         if (this.currentPoints >= this.areaType.pointsRequired) {
             this.calculateArea()
         }
@@ -398,22 +396,42 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, OnClickListene
 
     private fun calculateArea() {
         try {
-            val areaResult = AreaCalculator.calculateArea(this.areaType, this.database.getAllPoints().map {
-                Location(LocationManager.NETWORK_PROVIDER).apply {
-                    this.latitude = it.latitude
-                    this.longitude = it.longitude
-                }
-            })
-
-            popupManager.dialog(this.getString(R.string.area_result, areaResult), R.string.area)
-            this.database.saveResult("wadw", areaResult, Database.dateToTimestamp(Date()))
+            val figure = FigureManager.getFigure(
+                this.areaType,
+                FigureManager.convertCoordinates(
+                    this.database.getAllPoints(),
+                    this.locationProvider
+                )
+            )
+            val area = figure.calcArea()
+            this.popupManager.dialog(this.getString(R.string.area_result, area), R.string.area) {
+                val inflated =
+                    this@MainActivity.layoutInflater.inflate(R.layout.figure_dialog, null)
+                val figureCanvas: FigureView = inflated.findViewById(R.id.FigureCanvas)
+                setView(inflated)
+                figureCanvas.setFigure(figure)
+            }
+            this.database.saveResult(
+                UUID.randomUUID().toString(),
+                area,
+                Database.dateToTimestamp(Date())
+            )
+            this.lastSavedLocation = null
         } catch (err: Exception) {
             when (err) {
                 is IndexOutOfBoundsException -> {
-                    popupManager.dialog(R.string.hint_not_enough_points, R.string.error_area_calculation)
+                    popupManager.dialog(
+                        R.string.hint_not_enough_points,
+                        R.string.error_area_calculation
+                    )
                     return
                 }
-                is NumberFormatException -> popupManager.dialog(R.string.hint_area_not_a_number, R.string.error_area_calculation)
+
+                is NumberFormatException -> popupManager.dialog(
+                    R.string.hint_area_not_a_number,
+                    R.string.error_area_calculation
+                )
+
                 else -> popupManager.toast(R.string.error_area_calculation)
             }
         }
